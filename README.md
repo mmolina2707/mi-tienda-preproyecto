@@ -19,8 +19,6 @@ npm run dev
 ```
 3. Abrir `http://localhost:5173` (o la URL que indique Vite).
 
-> Nota: Este repositorio es un scaffold. Tailwind y dependencias se instalan con `npm install`. Si querés puedo adjuntar también un `package-lock.json` generado localmente, pero lo recomendable es correr `npm install` en tu máquina.
-
 Proyecto desarrollado en **React + Vite** con **Tailwind CSS**, cumpliendo los requerimientos del curso para crear un eCommerce interactivo, conectado a una API y con gestión de carrito de compras.
 
 ---
