@@ -1,62 +1,53 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ProductosPage from "./pages/ProductosPage";
 import Moda from "./pages/Moda";
-import Header from "./components/Header";
+import TopProducts from "./pages/TopProducts";
+
+
+import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { useState, useEffect } from "react";
-import Cart from "./components/Cart";
-import ProductDetail from './pages/ProductDetail';
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
-  const [cart, setCart] = useState(() => {
-    try {
-      const saved = localStorage.getItem("cart");
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 
-  useEffect(() => {
-    try {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    } catch {}
-  }, [cart]);
-
-  const addToCart = (product) => {
-    setCart(prev => {
-      const found = prev.find(p => p.id === product.id);
-      if (found) {
-        return prev.map(p => p.id === product.id ? { ...p, qty: p.qty + 1 } : p);
-      }
-      return [...prev, { ...product, qty: 1 }];
-    });
-  };
-
-  const removeFromCart = (id) => {
-    setCart(prev => prev.filter((p) => p.id !== id));
-  };
-
-  const updateQty = (id, qty) => {
-    setCart(prev => prev.map(p => p.id === id ? { ...p, qty } : p));
-  };
-
+export default function App() {
   return (
-    <Router>
-      <Header cartCount={cart.reduce((s,p)=>s+(p.qty||0),0)} />
-      <main className="min-h-screen py-8">
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<Home addToCart={addToCart} />} />
-            <Route path="/moda" element={<Moda addToCart={addToCart} />} />
-            <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} />
-            <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} updateQty={updateQty} />} />
-          </Routes>
-        </div>
-      </main>
-      <Footer />
-    </Router>
+    <BrowserRouter>
+      <AuthProvider>
+        <CartProvider>
+
+          <Navbar />
+
+          <main className="min-h-screen p-6">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+
+              <Route path="/productos" element={<ProductosPage />} />
+              <Route path="/moda" element={<Moda />} />
+              <Route path="/top" element={<TopProducts />} />
+
+              <Route path="/login" element={<LoginPage />} />
+
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <CartPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </main>
+
+          <Footer />
+
+        </CartProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
-export default App;
