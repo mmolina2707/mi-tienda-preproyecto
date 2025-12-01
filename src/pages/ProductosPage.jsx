@@ -1,4 +1,4 @@
-import ProductList from "../components/ProductList";
+import ProductsList from "../components/ProductsList";
 
 export default function ProductosPage() {
   return (

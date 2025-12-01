@@ -83,6 +83,7 @@ export default function ProductList({ category }) {
   );
 }*/
 
+
 import { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { fetchAll } from '../api/products';
@@ -122,4 +123,5 @@ export default function ProductList({ category }) {
     </div>
   );
 }
+
 

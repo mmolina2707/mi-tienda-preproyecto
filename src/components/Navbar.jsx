@@ -38,6 +38,12 @@ export default function Navbar() {
 
         <Link to="/cart" className="hover:text-yellow-400 relative">
 
+        <Link to="/admin/products" className="hover:text-yellow-400">
+          Admin
+        </Link>
+
+
+
           Carrito
 
           {/* Contador rojo */}

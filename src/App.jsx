@@ -1,53 +1,65 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import ProductosPage from "./pages/ProductosPage";
-import Moda from "./pages/Moda";
-import TopProducts from "./pages/TopProducts";
-
-
-import CartPage from "./pages/CartPage";
-import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ProtectedRoute from "./components/ProtectedRoute";
+
+import Home from "./pages/Home";
+import Moda from "./pages/Moda";
+import Top from "./pages/Top";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
 
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
+import { ProductsProvider } from "./context/ProductsContext";
+import "./styles.css";
+
+
+// CRUD Admin
+import AddProductForm from "./components/AddProductForm";
+import ProductsList from "./components/ProductsList";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <ProductsProvider>
+          <BrowserRouter>
+            
+            <Navbar />
 
-          <Navbar />
+            <div className="min-h-screen p-4">
+              <Routes>
 
-          <main className="min-h-screen p-6">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
+                {/* Tus rutas normales */}
+                <Route path="/" element={<Home />} />
+                <Route path="/moda" element={<Moda />} />
+                <Route path="/top" element={<Top />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/login" element={<Login />} />
 
-              <Route path="/productos" element={<ProductosPage />} />
-              <Route path="/moda" element={<Moda />} />
-              <Route path="/top" element={<TopProducts />} />
+                {/* === CRUD ADMIN === */}
+                <Route
+                  path="/admin/products"
+                  element={
+                    <div className="max-w-4xl mx-auto">
+                      <h1 className="text-3xl font-bold mb-4">
+                        Administración de Productos
+                      </h1>
 
-              <Route path="/login" element={<LoginPage />} />
+                      <AddProductForm />
+                      <div className="my-6"></div>
+                      <ProductsList />
+                    </div>
+                  }
+                />
+              </Routes>
+            </div>
 
-              <Route
-                path="/cart"
-                element={
-                  <ProtectedRoute>
-                    <CartPage />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </main>
+            <Footer />
 
-          <Footer />
-
-        </CartProvider>
-      </AuthProvider>
-    </BrowserRouter>
+          </BrowserRouter>
+        </ProductsProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
-
