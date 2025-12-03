@@ -83,7 +83,7 @@ export default function ProductList({ category }) {
   );
 }*/
 
-
+/*
 import { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { fetchAll } from '../api/products';
@@ -124,4 +124,21 @@ export default function ProductList({ category }) {
   );
 }
 
+*/
+
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
+import ProductCard from "./ProductCard";
+
+export default function ProductList() {
+  const { products } = useContext(ProductsContext);
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {products.map((p) => (
+        <ProductCard key={p.id} product={p} />
+      ))}
+    </div>
+  );
+}
 

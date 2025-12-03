@@ -4,7 +4,8 @@ const AuthContext = createContext();
 
 const USERS = {
   admin: "admin123",
-  mmolina: "123456"
+  mmolina: "123456",
+  mariag: "456789"
 };
 
 export function AuthProvider({ children }) {

@@ -36,15 +36,18 @@ export default function Navbar() {
           Productos Top
         </Link>
 
+        <Link to="/admin/products" className="hover:text-yellow-400">
+          Admin  
+        </Link>
+        
+        
         <Link to="/cart" className="hover:text-yellow-400 relative">
 
-        <Link to="/admin/products" className="hover:text-yellow-400">
-          Admin
-        </Link>
+        
 
 
 
-          Carrito
+          Carrito...
 
           {/* Contador rojo */}
           {totalItems > 0 && (

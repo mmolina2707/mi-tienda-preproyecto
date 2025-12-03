@@ -8,7 +8,11 @@ export default function ProductCard({ product }) {
   return (
     <article className="bg-white shadow rounded-2xl p-4 flex flex-col">
       <Link to={`/product/${product.id}`} className="block">
-        <img src={product.image} alt={product.title} className="h-48 object-contain mx-auto mb-4" />
+        <img 
+          src={`${product.image}`}
+          alt={product.name}
+          className="h-48 object-contain mx-auto mb-4"
+        />
       </Link>
 
       <h2 className="font-semibold text-lg">{product.title}</h2>
